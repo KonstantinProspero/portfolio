@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ blog.title }}</title>
+</head>
+<body>
+<h2>{{ blog.title }}</h2>
+
+<p><span class="date" style="font-size: small; opacity: 0.7;">{{ blog.pub_date|date:"d.m.Y H:i" }}</span><br>{{ blog.text|safe }}</p>
+
+ {% if blog.image %}
+<img src="{{ blog.image.url }}" style="width: 800px; height: auto;"> {% endif %} {% if blog.url %} <a href="{{ blog.url }}">Link</a><br>
+{% endif %}
+
+</body>
+</html>

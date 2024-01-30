@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <head>
+         <meta charset="UTF-8">
+         <title>{{ title }}</title>
+   </head>
+   <body>
+   <h2>Konstantin has written {{ blogs.count }} post{{ blogs.count|pluralize }}</h2>
+      <h1 class="mt-5">Blog</h1>
+      {% for blog in blogs %}
+      <a href="{% url 'blog:detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
+      <p>
+         <span class="date" style="font-size: small; opacity: 0.7;">
+             {{ blog.pub_date|date:"d.m.Y H:i" }}
+         </span>
+         <br>
+         {{ blog.text|truncatechars:100 }}
+      </p>
+      {% if blog.image %}
+      <img src="{{ blog.image.url }}" style="width: 400px; height: auto;"> {% endif %} {% if blog.url %} <a href="{{ blog.url }}">Link</a><br>
+      {% endif %}
+      {% endfor %}
+   </body>
+</html>
+</body> </html>
