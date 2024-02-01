@@ -1,17 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ blog.title }}</title>
-</head>
-<body>
-<h2>{{ blog.title }}</h2>
+{% extends "projects/base.html" %}
+
+{% load static %}
+
+{% block content %}
+ <link rel="stylesheet" href="{% static 'projects/custom.css' %}">
+<a class="navbar-brand" href="{% url 'home' %}">
+<span class="btn btn-primary btn-mainpage" style="margin-right: 320px;">Home</span>
+</a>
+<h1 class="text-center mt-5" id="blogdetailtitle">{{ blog.title }}</h1>
 
 <p><span class="date" style="font-size: small; opacity: 0.7;">{{ blog.pub_date|date:"d.m.Y H:i" }}</span><br>{{ blog.text|safe }}</p>
-
  {% if blog.image %}
 <img src="{{ blog.image.url }}" style="width: 800px; height: auto;"> {% endif %} {% if blog.url %} <a href="{{ blog.url }}">Link</a><br>
 {% endif %}
 
-</body>
-</html>
+
+
+
+
+<h2>Comments</h2>
+<div  style="margin-top: 20px;">
+  {% for comment in comments reversed %}
+    <div class="comment" style="background-color: white; padding: 10px; margin-bottom: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+      <h4 style="margin-bottom: 5px; color: #0d6efd;">{{ comment.name }}</h4>
+      <h5 class="date" style="font-size: smaller; color: #6c757d;">{{ comment.created_at|date:"d.m.Y H:i" }}</h5>
+      <p>{{ comment.content }}</p>
+    </div>
+  {% endfor %}
+  <button class="btn btn-primary btn-sm" id="showMoreButton" style="margin-top: -5px;">Show More</button>
+  <button class="btn btn-primary btn-sm" id="hideButton" style="display: none; margin-top: -5px;">Hide</button>
+
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const comments = document.querySelectorAll('.comment');
+    const showMoreButton = document.getElementById('showMoreButton');
+    const initialCommentCount = 3;
+
+    // Скрываем все комментарии, кроме первых initialCommentCount
+    for (let i = initialCommentCount; i < comments.length; i++) {
+      comments[i].style.display = 'none';
+    }
+
+    // Обработчик нажатия на кнопку "Show More"
+    showMoreButton.addEventListener('click', function() {
+      for (let i = initialCommentCount; i < comments.length; i++) {
+        comments[i].style.display = 'block';
+      }
+      showMoreButton.style.display = 'none'; // Скрыть кнопку после показа всех комментариев
+      hideButton.style.display = 'block'; // Показать кнопку "Hide" после показа всех комментариев
+    });
+
+    // Обработчик нажатия на кнопку "Hide"
+    hideButton.addEventListener('click', function() {
+      for (let i = initialCommentCount; i < comments.length; i++) {
+        comments[i].style.display = 'none';
+      }
+      showMoreButton.style.display = 'block'; // Показать кнопку "Show More" посл скрытия комментариев
+      hideButton.style.display = 'none'; // Скрыть кнопку "Hide" после скрытия комментариев
+    });
+  });
+</script>
+
+
+<button class="btn btn-primary btn-sm"  id="show-comment-form" style="margin-top: 5px;">Write a comment</button>
+<div id="comment-form" style="display: none;">
+  <form id="new-comment-form" method="post" style="display: none;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary " type="submit">Add comment</button>
+  </form>
+</div>
+
+<script>
+  const showCommentFormButton = document.getElementById('show-comment-form');
+  const commentForm = document.getElementById('comment-form');
+  const newCommentForm = document.getElementById('new-comment-form');
+
+  showCommentFormButton.addEventListener('click', function() {
+    if (commentForm.style.display === 'none') {
+      commentForm.style.display = 'block';
+      newCommentForm.style.display = 'block';
+    } else {
+      commentForm.style.display = 'none';
+      newCommentForm.style.display = 'none';
+    }
+  });
+</script>
+
+
+{% endblock %}

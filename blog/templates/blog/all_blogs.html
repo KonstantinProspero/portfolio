@@ -1,26 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      <head>
-         <meta charset="UTF-8">
-         <title>{{ title }}</title>
-   </head>
-   <body>
-   <h2>Konstantin has written {{ blogs.count }} post{{ blogs.count|pluralize }}</h2>
-      <h1 class="mt-5">Blog</h1>
-      {% for blog in blogs %}
-      <a href="{% url 'blog:detail' blog.id %}"><h2>{{ blog.title }}</h2></a>
-      <p>
-         <span class="date" style="font-size: small; opacity: 0.7;">
-             {{ blog.pub_date|date:"d.m.Y H:i" }}
-         </span>
-         <br>
-         {{ blog.text|truncatechars:100 }}
-      </p>
-      {% if blog.image %}
-      <img src="{{ blog.image.url }}" style="width: 400px; height: auto;"> {% endif %} {% if blog.url %} <a href="{{ blog.url }}">Link</a><br>
-      {% endif %}
-      {% endfor %}
-   </body>
-</html>
-</body> </html>
+{% extends "projects/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<a class="navbar-brand" href="{% url 'home' %}">
+<span class="btn btn-primary btn-mainpage" style="margin-right: 320px;">Home</span>
+</a>
+<h1 id="blogtitle" class="font-weight-bold text-center">Blog</h1>
+
+<h3 class="text-center mb-5">Konstantin has written {{ blogs.count }} blog{{ blogs.count|pluralize }}</h3>
+
+{% for blog in blogs %}
+<div class="row justify-content-center my-3">
+  <div class="col-md-10">
+    <a href="{% url 'blog:detail' blog.id %}">
+      <h2>{{ blog.title }}</h2>
+    </a>
+    <h5 class="text-muted">{{ blog.date|date:'M d Y'|upper }}</h5>
+    <h4>{{ blog.text|striptags|truncatechars:50 }}</h4>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

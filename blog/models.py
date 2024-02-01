@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 class Blog(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField(
@@ -28,3 +29,16 @@ class Blog(models.Model):
     def __str__(self):
         return self.text[:15]
 
+
+# class Post(models.Model):
+#     title = models.CharField(max_length=100)
+#     content = models.TextField()
+
+class Comment(models.Model):
+    post = models.ForeignKey(
+        Blog,
+        on_delete=models.CASCADE,
+        related_name='comments')
+    name = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

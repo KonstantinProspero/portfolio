@@ -1,0 +1,20 @@
+.comment-input {
+    width: 45%; /* Уменьшаем ширину поля для ввода имени */
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.comment-input::placeholder {
+    /* Добавляем подсказку внутрь рамки поля для ввода имени */
+    color: #999;
+    font-style: italic;
+}
+
+.comment::placeholder {
+    /* Добавляем подсказку внутрь рамки поля комментария */
+    color: #999;
+    font-style: italic;
+}

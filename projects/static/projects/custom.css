@@ -1,0 +1,45 @@
+.navbar-nav .nav-link {
+    color: rgba(0,0,0,1) !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgba(0,0,0,.5) !important;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+#blogtitle {
+    font-size: 6rem;
+}
+
+@media (min-width: 992px) {
+    #hometext {
+        font-size: 4rem;
+    }
+    #blogdetailtitle {
+        font-size: 5rem;
+    }
+}
+  .btn-mainpage {
+    position: absolute;
+    top: 32px;
+    right: 10px;
+    color: white;
+  }
+  .name {
+    position: absolute;
+    top: 200px;
+    left: 43px; /* отступ слева */
+    font-size: 16px;
+  }
+      .contact-info {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 19px;
+      text-transform: uppercase;
+      padding: 10px;
+    }
