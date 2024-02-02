@@ -24,8 +24,8 @@ body {
 }
   .btn-mainpage {
     position: absolute;
-    top: 32px;
-    right: 10px;
+    top: 8px;
+    right: -270px;
     color: white;
   }
   .name {
@@ -43,3 +43,4 @@ body {
       text-transform: uppercase;
       padding: 10px;
     }
+
